@@ -1,3 +1,130 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Igge</title>
-<style>body{font-family:-apple-system,system-ui,sans-serif;background:#111;color:#eee;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center}</style></head>
-<body><main><h1>🦔 Igge</h1><p>En app för bilägare från aMASE. Kommer snart.</p></main></body></html>
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Igge — en app för din Tesla</title>
+<meta name="description" content="Igge visar bilen, körjournal, laddning, batteri och kostnader. Kommer snart till App Store.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <h1 class="wordmark">Igge</h1>
+  <p class="tagline">En app för din Tesla. Körjournal, laddning, batteri och kostnader, samlat på ett ställe.</p>
+  <!--
+    Så byts märket mot App Store-länken: ersätt hela elementet med id="store"
+    med en länk, och behåll id och class:
+    <a class="store" id="store" href="https://apps.apple.com/app/idXXXXXXXX">Hämta i App Store</a>
+  -->
+  <p class="store" id="store">Kommer snart till App Store</p>
+</header>
+
+<section>
+  <article class="feature">
+    <figure class="shot">
+      <img src="images/hem.webp" width="780" height="1643" alt="Igges hemvy i demoläge: en exempelbil, laddning och senaste resor på en karta.">
+    </figure>
+    <div>
+      <h2>Hem</h2>
+      <p>Hemsidan visar bilen som den är just nu: laddning, räckvidd, lås, vaktläge och klimat. Under det ligger de senaste resorna, med en karta över den senaste sträckan.</p>
+      <p>Allt på bilderna kommer från appens demoläge. Bilen, platserna och siffrorna är påhittade exempel, inte en riktig bil.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature">
+    <figure class="shot">
+      <img src="images/journal.webp" width="780" height="1643" alt="Körjournalen i demoläge, med tjänst- och privatresor och en exportknapp.">
+    </figure>
+    <div>
+      <h2>Körjournal</h2>
+      <p>Varje resa sparas med sträcka, tid och tagg, till exempel tjänst eller privat. Du kan lägga till ärende, besök och en egen kommentar.</p>
+      <p>Journalen kan exporteras som CSV eller PDF, i det format som behövs för underlag till Skatteverket. Exporten görs i appen, från den telefon som är inloggad.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature">
+    <figure class="shot">
+      <img src="images/laddning.webp" width="780" height="1643" alt="Laddning i demoläge, med effekt, tillagd energi och en kommande laddning.">
+    </figure>
+    <div>
+      <h2>Laddning och elpris</h2>
+      <p>När bilen laddar visar Igge effekt, tillagd energi och om laddningen sker hemma eller borta. Historiken ligger kvar så att du kan se vad en laddning kostade.</p>
+      <p>Elpriset hämtas för att räkna ut vad hemmaladdningen kostar, och för att peka ut det billigaste fönstret att ladda i. Prisanropen innehåller inte ditt konto.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature">
+    <figure class="shot">
+      <img src="images/batteri.webp" width="780" height="1643" alt="Batterihälsa i demoläge, med procent, räckvidd och en kurva över tid.">
+    </figure>
+    <div>
+      <h2>Batterihälsa</h2>
+      <p>Batterivyn visar hur mycket kapacitet som finns kvar, i procent och i räckvidd, jämfört med när bilen var ny.</p>
+      <p>En kurva visar hur hälsan har rört sig över tid. Siffrorna kommer från bilen. Igge gissar inte fram ett eget värde.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature">
+    <figure class="shot">
+      <img src="images/kostnader.webp" width="780" height="1643" alt="Kostnader i demoläge, med kronor per mil och en jämförelse mot bensin.">
+    </figure>
+    <div>
+      <h2>Kostnader</h2>
+      <p>Kostnadssidan räknar vad körningen kostar per mil, utifrån elpris, laddning och den sträcka journalen har.</p>
+      <p>Den jämför också med vad samma sträcka hade kostat med bensin, så att skillnaden syns utan att du själv behöver räkna.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature plain">
+    <div>
+      <h2>Widgets</h2>
+      <p>Igge har widgets för hemskärmen. De visar bilen i korthet: laddning, räckvidd och om den är låst, utan att du öppnar appen.</p>
+      <p>Widgetbilden innehåller inte adresser och inte koordinater. Den läser samma demodata som resten av appen när demoläget är på.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature">
+    <figure class="shot">
+      <img src="images/korlage.webp" width="780" height="1696" alt="Körläge i demoläge, med fartmätare. iOS frågar om plats i mitten av bilden.">
+      <figcaption>Systemet frågar om telefonens plats i den här bilden. Frågan kommer från iOS, inte från ett påhittat lager.</figcaption>
+    </figure>
+    <div>
+      <h2>Körläge</h2>
+      <p>Körläget är till för när du sitter i bilen. En stor fartmätare, resans energi och nästa del av rutten syns utan att du letar i menyerna.</p>
+      <p>Telefonens egen plats används bara om du tillåter den, till exempel för fart när bilens position saknas. Den platsen skickas inte till Tesla.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <article class="feature plain" id="din-data">
+    <div>
+      <h2>Din data</h2>
+      <p>Vi säljer inte dina uppgifter och delar dem inte med annonsörer. Det finns ingen reklam och ingen spårning mellan appar.</p>
+      <p>Kontot och körjournalen lagras på en server hos IONOS i Tyskland, alltså inom EU. All trafik är krypterad.</p>
+      <p>Hur uppgifterna sparas, hur länge, och hur du raderar kontot står i <a href="integritet/">integritetspolicyn</a>.</p>
+    </div>
+  </article>
+</section>
+
+<footer>
+  <p class="copy">© 2026 aMASE AB. Alla rättigheter förbehållna.</p>
+  <p>aMASE AB, Tygelvägen 8, 746 39 Bålsta · <a href="mailto:igge@amase.se">igge@amase.se</a> · <a href="integritet/">Integritetspolicy</a></p>
+  <p>Igge är inte kopplad till eller godkänd av Tesla, Inc. Appen är gjord för Tesla-bilar.</p>
+</footer>
+</div>
+</body>
+</html>
