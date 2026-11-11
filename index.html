@@ -6,125 +6,105 @@
 <title>Igge — en app för din Tesla</title>
 <meta name="description" content="Igge visar bilen, körjournal, laddning, batteri och kostnader. Kommer snart till App Store.">
 <link rel="stylesheet" href="style.css">
+<script>
+(function () {
+  var theme = new URLSearchParams(location.search).get("theme");
+  if (theme === "light" || theme === "dark") document.documentElement.setAttribute("data-theme", theme);
+})();
+</script>
 </head>
 <body>
+<div class="hero">
+  <div class="wrap">
+    <h1 class="wordmark">Igge</h1>
+    <p class="tagline">En app för din Tesla. Körjournal, laddning, batteri och kostnader, samlat på ett ställe.</p>
+    <!--
+      Så byts märket mot App Store-länken: ersätt hela elementet med id="store"
+      och behåll id och class:
+      <a class="store" id="store" href="https://apps.apple.com/app/idXXXXXXXX">Hämta i App Store</a>
+    -->
+    <p class="store" id="store">Kommer snart till App Store</p>
+  </div>
+</div>
+
+<main class="wrap">
+<section class="showcase" aria-roledescription="karusell" aria-label="Igges delar">
+  <div class="stage">
+    <div class="copy" id="panel" aria-live="polite">
+      <h2 id="feature-title">Bilen, just nu</h2>
+      <p id="feature-text"></p>
+      <figure class="aside" id="aside" hidden>
+        <img id="aside-img" alt="" width="780" height="1644">
+        <figcaption id="aside-cap"></figcaption>
+      </figure>
+      <div class="widgets" id="widget-row" hidden>
+        <figure>
+          <img src="images/widget-small.webp" alt="Liten körjournal-widget på hemskärmen i demoläge." width="400" height="400" loading="lazy">
+          <figcaption>Liten</figcaption>
+        </figure>
+        <figure>
+          <img src="images/widget-medium.webp" alt="Mellanstor körjournal-widget på hemskärmen i demoläge." width="800" height="400" loading="lazy">
+          <figcaption>Mellan</figcaption>
+        </figure>
+        <figure>
+          <img src="images/widget-large.webp" alt="Stor körjournal-widget på hemskärmen i demoläge." width="800" height="800" loading="lazy">
+          <figcaption>Stor</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="phone-col">
+      <div class="phone">
+        <div class="bezel">
+          <div class="reel" id="reel" tabindex="0" aria-label="Skärmbilder. Piltangenter byter del.">
+            <picture><source srcset="images/hem.webp" type="image/webp"><img src="images/hem.png" width="780" height="1644" alt="Hem: exempelbil, laddning och senaste resor."></picture>
+            <picture><source srcset="images/journal.webp" type="image/webp"><img src="images/journal.png" width="780" height="1644" alt="Körjournal med tjänsteresor, utan varningar om saknat ärende." loading="lazy"></picture>
+            <picture><source srcset="images/laddning.webp" type="image/webp"><img src="images/laddning.png" width="780" height="1644" alt="Laddning i demoläge, med effekt och tillagd energi." loading="lazy"></picture>
+            <picture><source srcset="images/batteri.webp" type="image/webp"><img src="images/batteri.png" width="780" height="1644" alt="Batterihälsa i demoläge." loading="lazy"></picture>
+            <picture><source srcset="images/kostnader.webp" type="image/webp"><img src="images/kostnader.png" width="780" height="1644" alt="Kostnader per mil och jämförelse mot bensin." loading="lazy"></picture>
+            <picture><source srcset="images/widgets.webp" type="image/webp"><img src="images/widgets.png" width="780" height="1644" alt="Hemskärm med Igges widget i demoläge." loading="lazy"></picture>
+            <picture><source srcset="images/korlage.webp" type="image/webp"><img src="images/korlage.png" width="780" height="1696" alt="Körläge med fartmätare, utan systemets platsfråga." loading="lazy"></picture>
+          </div>
+        </div>
+      </div>
+      <div class="arrows">
+        <button type="button" id="prev" aria-label="Föregående del">‹</button>
+        <button type="button" id="next" aria-label="Nästa del">›</button>
+      </div>
+    </div>
+  </div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Delar i appen"></div>
+</section>
+
+<section class="data" id="din-data">
+  <h2>Din data</h2>
+  <div class="cards">
+    <article class="card">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 14.5 l4 4 8-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h3>Ingen data säljs eller delas</h3>
+      <p>Inget säljs, ingen reklam och ingen spårning mellan appar.</p>
+    </article>
+    <article class="card">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2 14 h24 M14 2 c4 3.5 6 7.5 6 12 s-2 8.5-6 12 c-4-3.5-6-7.5-6-12 s2-8.5 6-12z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      <h3>Server i EU (Tyskland)</h3>
+      <p>Kontot och körjournalen lagras hos IONOS i Tyskland.</p>
+    </article>
+    <article class="card">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="6" y="12" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 12 V9 a5 5 0 0 1 10 0 v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      <h3>Krypterad trafik</h3>
+      <p>All trafik är krypterad och kräver inloggning.</p>
+    </article>
+  </div>
+  <p class="more">Hur uppgifterna sparas, hur länge, och hur du raderar kontot står i <a href="integritet/">integritetspolicyn</a>.</p>
+</section>
+</main>
+
 <div class="wrap">
-<header class="hero">
-  <h1 class="wordmark">Igge</h1>
-  <p class="tagline">En app för din Tesla. Körjournal, laddning, batteri och kostnader, samlat på ett ställe.</p>
-  <!--
-    Så byts märket mot App Store-länken: ersätt hela elementet med id="store"
-    med en länk, och behåll id och class:
-    <a class="store" id="store" href="https://apps.apple.com/app/idXXXXXXXX">Hämta i App Store</a>
-  -->
-  <p class="store" id="store">Kommer snart till App Store</p>
-</header>
-
-<section>
-  <article class="feature">
-    <figure class="shot">
-      <img src="images/hem.webp" width="780" height="1643" alt="Igges hemvy i demoläge: en exempelbil, laddning och senaste resor på en karta.">
-    </figure>
-    <div>
-      <h2>Hem</h2>
-      <p>Hemsidan visar bilen som den är just nu: laddning, räckvidd, lås, vaktläge och klimat. Under det ligger de senaste resorna, med en karta över den senaste sträckan.</p>
-      <p>Allt på bilderna kommer från appens demoläge. Bilen, platserna och siffrorna är påhittade exempel, inte en riktig bil.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature">
-    <figure class="shot">
-      <img src="images/journal.webp" width="780" height="1643" alt="Körjournalen i demoläge, med tjänst- och privatresor och en exportknapp.">
-    </figure>
-    <div>
-      <h2>Körjournal</h2>
-      <p>Varje resa sparas med sträcka, tid och tagg, till exempel tjänst eller privat. Du kan lägga till ärende, besök och en egen kommentar.</p>
-      <p>Journalen kan exporteras som CSV eller PDF, i det format som behövs för underlag till Skatteverket. Exporten görs i appen, från den telefon som är inloggad.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature">
-    <figure class="shot">
-      <img src="images/laddning.webp" width="780" height="1643" alt="Laddning i demoläge, med effekt, tillagd energi och en kommande laddning.">
-    </figure>
-    <div>
-      <h2>Laddning och elpris</h2>
-      <p>När bilen laddar visar Igge effekt, tillagd energi och om laddningen sker hemma eller borta. Historiken ligger kvar så att du kan se vad en laddning kostade.</p>
-      <p>Elpriset hämtas för att räkna ut vad hemmaladdningen kostar, och för att peka ut det billigaste fönstret att ladda i. Prisanropen innehåller inte ditt konto.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature">
-    <figure class="shot">
-      <img src="images/batteri.webp" width="780" height="1643" alt="Batterihälsa i demoläge, med procent, räckvidd och en kurva över tid.">
-    </figure>
-    <div>
-      <h2>Batterihälsa</h2>
-      <p>Batterivyn visar hur mycket kapacitet som finns kvar, i procent och i räckvidd, jämfört med när bilen var ny.</p>
-      <p>En kurva visar hur hälsan har rört sig över tid. Siffrorna kommer från bilen. Igge gissar inte fram ett eget värde.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature">
-    <figure class="shot">
-      <img src="images/kostnader.webp" width="780" height="1643" alt="Kostnader i demoläge, med kronor per mil och en jämförelse mot bensin.">
-    </figure>
-    <div>
-      <h2>Kostnader</h2>
-      <p>Kostnadssidan räknar vad körningen kostar per mil, utifrån elpris, laddning och den sträcka journalen har.</p>
-      <p>Den jämför också med vad samma sträcka hade kostat med bensin, så att skillnaden syns utan att du själv behöver räkna.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature plain">
-    <div>
-      <h2>Widgets</h2>
-      <p>Igge har widgets för hemskärmen. De visar bilen i korthet: laddning, räckvidd och om den är låst, utan att du öppnar appen.</p>
-      <p>Widgetbilden innehåller inte adresser och inte koordinater. Den läser samma demodata som resten av appen när demoläget är på.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature">
-    <figure class="shot">
-      <img src="images/korlage.webp" width="780" height="1696" alt="Körläge i demoläge, med fartmätare. iOS frågar om plats i mitten av bilden.">
-      <figcaption>Systemet frågar om telefonens plats i den här bilden. Frågan kommer från iOS, inte från ett påhittat lager.</figcaption>
-    </figure>
-    <div>
-      <h2>Körläge</h2>
-      <p>Körläget är till för när du sitter i bilen. En stor fartmätare, resans energi och nästa del av rutten syns utan att du letar i menyerna.</p>
-      <p>Telefonens egen plats används bara om du tillåter den, till exempel för fart när bilens position saknas. Den platsen skickas inte till Tesla.</p>
-    </div>
-  </article>
-</section>
-
-<section>
-  <article class="feature plain" id="din-data">
-    <div>
-      <h2>Din data</h2>
-      <p>Vi säljer inte dina uppgifter och delar dem inte med annonsörer. Det finns ingen reklam och ingen spårning mellan appar.</p>
-      <p>Kontot och körjournalen lagras på en server hos IONOS i Tyskland, alltså inom EU. All trafik är krypterad.</p>
-      <p>Hur uppgifterna sparas, hur länge, och hur du raderar kontot står i <a href="integritet/">integritetspolicyn</a>.</p>
-    </div>
-  </article>
-</section>
-
 <footer>
   <p class="copy">© 2026 aMASE AB. Alla rättigheter förbehållna.</p>
   <p>aMASE AB, Tygelvägen 8, 746 39 Bålsta · <a href="mailto:igge@amase.se">igge@amase.se</a> · <a href="integritet/">Integritetspolicy</a></p>
   <p>Igge är inte kopplad till eller godkänd av Tesla, Inc. Appen är gjord för Tesla-bilar.</p>
 </footer>
 </div>
+<script src="site.js"></script>
 </body>
 </html>
