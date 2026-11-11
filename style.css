@@ -179,6 +179,8 @@ a.store:hover { opacity: 0.86; }
 
 .copy-stack {
   display: grid;
+  position: relative;
+  z-index: 0;
 }
 
 .copy-slide {
@@ -213,7 +215,10 @@ a.store:hover { opacity: 0.86; }
 
 .copy p + p { margin-top: 12px; color: var(--ink); }
 
-.phone-col { position: relative; }
+.phone-col {
+  position: relative;
+  z-index: 1;
+}
 
 .phone {
   width: min(300px, 72vw);
@@ -242,7 +247,8 @@ a.store:hover { opacity: 0.86; }
   scroll-snap-type: x mandatory;
   scroll-behavior: auto;
   scrollbar-width: none;
-  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
   overscroll-behavior-x: contain;
 }
 

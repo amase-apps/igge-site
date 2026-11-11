@@ -7,7 +7,6 @@
   var timer = null;
   var paused = false;
   var ignoreScroll = false;
-  var drag = null;
   var unlockTimer = null;
 
   slides.forEach(function (slide, i) {
@@ -83,6 +82,7 @@
   }
 
   var programmatic = false;
+  var scrollTimer = null;
 
   function showFromReel(i) {
     if (i < 0 || i === index) return;
@@ -90,27 +90,25 @@
     render(i);
   }
 
-  if ("IntersectionObserver" in window) {
-    var watcher = new IntersectionObserver(function (entries) {
-      if (programmatic) return;
-      var best = null;
-      entries.forEach(function (entry) {
-        if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
-      });
-      if (!best || best.intersectionRatio < 0.55) return;
-      showFromReel(Array.prototype.indexOf.call(reel.children, best.target));
-    }, { root: reel, threshold: [0.55, 0.75, 0.9] });
-    Array.prototype.forEach.call(reel.children, function (el) { watcher.observe(el); });
+  function syncFromScroll() {
+    if (programmatic) return;
+    showFromReel(nearest());
   }
 
+  reel.addEventListener("scroll", function () {
+    if (programmatic) return;
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(syncFromScroll, 80);
+  }, { passive: true });
+
   reel.addEventListener("scrollend", function () {
-    drag = null;
+    if (scrollTimer) { clearTimeout(scrollTimer); scrollTimer = null; }
     if (programmatic) {
       programmatic = false;
       render(index);
       return;
     }
-    showFromReel(nearest());
+    syncFromScroll();
   });
 
   function arm(el, fn) {
@@ -128,39 +126,6 @@
     if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1, true); }
   });
 
-  reel.addEventListener("pointerdown", function (e) {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
-    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, left: reel.scrollLeft, lock: null };
-    if (reel.setPointerCapture) reel.setPointerCapture(e.pointerId);
-  });
-
-  reel.addEventListener("pointermove", function (e) {
-    if (!drag || e.pointerId !== drag.id) return;
-    var dx = e.clientX - drag.x;
-    var dy = e.clientY - drag.y;
-    if (!drag.lock) {
-      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-      drag.lock = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-    }
-    if (drag.lock !== "x") return;
-    e.preventDefault();
-    ignoreScroll = true;
-    reel.scrollLeft = drag.left - dx;
-  }, { passive: false });
-
-  function endDrag(e) {
-    if (!drag || (e && e.pointerId !== drag.id)) return;
-    var horizontal = drag.lock === "x";
-    drag = null;
-    if (!horizontal) { ignoreScroll = false; return; }
-    index = nearest();
-    moveReel(index, reduce ? "auto" : "smooth");
-    render(index);
-    pause();
-  }
-  reel.addEventListener("pointerup", endDrag);
-  reel.addEventListener("pointercancel", endDrag);
-
   function pause() {
     paused = true;
     if (timer) { clearInterval(timer); timer = null; }
@@ -172,7 +137,7 @@
 
   if (!reduce) {
     timer = setInterval(function () {
-      if (paused || document.hidden || drag) return;
+      if (paused || document.hidden) return;
       go(index + 1, false);
     }, 7000);
   }
