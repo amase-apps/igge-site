@@ -184,10 +184,16 @@ a.store:hover { opacity: 0.86; }
 .copy-slide {
   grid-area: 1 / 1;
   visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, visibility 0s linear 180ms;
 }
 
 .copy-slide.is-on {
   visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 180ms ease, visibility 0s linear 0s;
 }
 
 .copy h2 {
@@ -400,5 +406,5 @@ code {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reel { scroll-behavior: auto; }
+  .reel, .copy-slide { scroll-behavior: auto; transition: none; }
 }

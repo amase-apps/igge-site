@@ -55,6 +55,7 @@
 
   function moveReel(i, behavior) {
     sizeSlides();
+    programmatic = true;
     ignoreScroll = true;
     if (unlockTimer) { clearTimeout(unlockTimer); unlockTimer = null; }
     var behaviorName = behavior || "auto";
@@ -62,6 +63,8 @@
     var unlock = function () {
       ignoreScroll = true;
       reel.scrollLeft = index * slideWidth();
+      programmatic = false;
+      render(index);
       unlockTimer = setTimeout(function () { ignoreScroll = false; unlockTimer = null; }, 60);
     };
     if (behaviorName === "smooth") unlockTimer = setTimeout(unlock, 520);
@@ -79,15 +82,36 @@
     return Math.max(0, Math.min(slides.length - 1, Math.round(reel.scrollLeft / slideWidth())));
   }
 
-  var scrollTick = null;
-  reel.addEventListener("scroll", function () {
-    if (ignoreScroll || drag) return;
-    if (scrollTick) cancelAnimationFrame(scrollTick);
-    scrollTick = requestAnimationFrame(function () {
-      var i = nearest();
-      if (i !== index) { index = i; render(i); }
-    });
-  }, { passive: true });
+  var programmatic = false;
+
+  function showFromReel(i) {
+    if (i < 0 || i === index) return;
+    index = i;
+    render(i);
+  }
+
+  if ("IntersectionObserver" in window) {
+    var watcher = new IntersectionObserver(function (entries) {
+      if (programmatic) return;
+      var best = null;
+      entries.forEach(function (entry) {
+        if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
+      });
+      if (!best || best.intersectionRatio < 0.55) return;
+      showFromReel(Array.prototype.indexOf.call(reel.children, best.target));
+    }, { root: reel, threshold: [0.55, 0.75, 0.9] });
+    Array.prototype.forEach.call(reel.children, function (el) { watcher.observe(el); });
+  }
+
+  reel.addEventListener("scrollend", function () {
+    drag = null;
+    if (programmatic) {
+      programmatic = false;
+      render(index);
+      return;
+    }
+    showFromReel(nearest());
+  });
 
   function arm(el, fn) {
     el.addEventListener("mousedown", function (e) { e.preventDefault(); });
