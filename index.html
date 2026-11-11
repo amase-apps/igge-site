@@ -30,39 +30,49 @@
 <main class="wrap">
 <section class="showcase" aria-roledescription="karusell" aria-label="Igges delar">
   <div class="stage">
-    <div class="copy" id="panel" aria-live="polite">
-      <h2 id="feature-title">Bilen, just nu</h2>
-      <p id="feature-text"></p>
-      <figure class="aside" id="aside" hidden>
-        <img id="aside-img" alt="" width="780" height="1644">
-        <figcaption id="aside-cap"></figcaption>
-      </figure>
-      <div class="widgets" id="widget-row" hidden>
-        <figure>
-          <img src="images/widget-small.webp" alt="Liten körjournal-widget på hemskärmen i demoläge." width="400" height="400" loading="lazy">
-          <figcaption>Liten</figcaption>
-        </figure>
-        <figure>
-          <img src="images/widget-medium.webp" alt="Mellanstor körjournal-widget på hemskärmen i demoläge." width="800" height="400" loading="lazy">
-          <figcaption>Mellan</figcaption>
-        </figure>
-        <figure>
-          <img src="images/widget-large.webp" alt="Stor körjournal-widget på hemskärmen i demoläge." width="800" height="800" loading="lazy">
-          <figcaption>Stor</figcaption>
-        </figure>
+    <div class="copy">
+      <div class="copy-stack" id="panel">
+        <article class="copy-slide is-on" data-slide="hem" data-name="Hem">
+          <h2>Bilen, just nu</h2>
+          <p>Hemsidan visar laddning, räckvidd, lås, vaktläge och klimat. Under det ligger de senaste resorna, med en karta över den senaste sträckan. Bilderna är från demoläget: bilen, platserna och siffrorna är påhittade exempel.</p>
+        </article>
+        <article class="copy-slide" data-slide="journal" data-name="Körjournal" aria-hidden="true">
+          <h2>Körjournal</h2>
+          <p>Varje resa sparas med sträcka, tid och tagg, till exempel tjänst eller privat. Du kan fylla i ärende och vem du besökte. Journalen kan exporteras som CSV eller PDF, i det format som behövs som underlag till Skatteverket.</p>
+        </article>
+        <article class="copy-slide" data-slide="laddning" data-name="Laddning" aria-hidden="true">
+          <h2>Laddning och elpris</h2>
+          <p>När bilen laddar visar Igge effekt, tillagd energi och om laddningen sker hemma eller borta. Elpriset används för att räkna vad hemmaladdningen kostar och för att peka ut det billigaste fönstret. Prisanropen innehåller inte ditt konto.</p>
+        </article>
+        <article class="copy-slide" data-slide="batteri" data-name="Batterihälsa" aria-hidden="true">
+          <h2>Batterihälsa</h2>
+          <p>Igge använder bilens eget värde för full kapacitet när bilen skickar det. Annars uppskattas hälsan ur energi mot laddnivå, och ur energi in vid laddningar. En siffra visas först när underlaget räcker och osäkerheten är liten.</p>
+        </article>
+        <article class="copy-slide" data-slide="kostnader" data-name="Kostnader" aria-hidden="true">
+          <h2>Kostnader</h2>
+          <p>Kostnadssidan räknar vad körningen kostar per mil, utifrån elpris, laddning och den sträcka journalen har. Den jämför också med vad samma sträcka hade kostat med bensin.</p>
+        </article>
+        <article class="copy-slide" data-slide="widgets" data-name="Widgets" aria-hidden="true">
+          <h2>Widgets</h2>
+          <p>Igge har widgets för hemskärmen, i litet, mellan och stort format. De visar körjournal eller batteri i korthet, utan adresser och utan koordinater. Bilderna i telefonen är tagna på simulatorns hemskärm i demoläge.</p>
+        </article>
+        <article class="copy-slide" data-slide="korlage" data-name="Körläge" aria-hidden="true">
+          <h2>Körläge</h2>
+          <p>Körläget är till för när du sitter i bilen. En stor fartmätare, resans energi och nästa del av rutten syns utan att du letar i menyerna. Telefonens egen plats används bara om du tillåter den, och den skickas inte till Tesla.</p>
+        </article>
       </div>
     </div>
     <div class="phone-col">
       <div class="phone">
         <div class="bezel">
-          <div class="reel" id="reel" tabindex="0" aria-label="Skärmbilder. Piltangenter byter del.">
-            <picture><source srcset="images/hem.webp" type="image/webp"><img src="images/hem.png" width="780" height="1644" alt="Hem: exempelbil, laddning och senaste resor."></picture>
-            <picture><source srcset="images/journal.webp" type="image/webp"><img src="images/journal.png" width="780" height="1644" alt="Körjournal med tjänsteresor, utan varningar om saknat ärende." loading="lazy"></picture>
-            <picture><source srcset="images/laddning.webp" type="image/webp"><img src="images/laddning.png" width="780" height="1644" alt="Laddning i demoläge, med effekt och tillagd energi." loading="lazy"></picture>
-            <picture><source srcset="images/batteri.webp" type="image/webp"><img src="images/batteri.png" width="780" height="1644" alt="Batterihälsa i demoläge." loading="lazy"></picture>
-            <picture><source srcset="images/kostnader.webp" type="image/webp"><img src="images/kostnader.png" width="780" height="1644" alt="Kostnader per mil och jämförelse mot bensin." loading="lazy"></picture>
-            <picture><source srcset="images/widgets.webp" type="image/webp"><img src="images/widgets.png" width="780" height="1644" alt="Hemskärm med Igges widget i demoläge." loading="lazy"></picture>
-            <picture><source srcset="images/korlage.webp" type="image/webp"><img src="images/korlage.png" width="780" height="1696" alt="Körläge med fartmätare, utan systemets platsfråga." loading="lazy"></picture>
+          <div class="reel" id="reel" aria-label="Skärmbilder. Piltangenter byter del.">
+            <picture><source srcset="images/hem.webp" type="image/webp"><img src="images/hem.png" width="370" height="780" alt="Hem: exempelbil, laddning och senaste resor."></picture>
+            <picture><source srcset="images/journal.webp" type="image/webp"><img src="images/journal.png" width="370" height="780" alt="Körjournal med tjänsteresor, utan varningar om saknat ärende." loading="lazy"></picture>
+            <picture><source srcset="images/laddning.webp" type="image/webp"><img src="images/laddning.png" width="370" height="780" alt="Laddning i demoläge, med effekt och tillagd energi." loading="lazy"></picture>
+            <picture><source srcset="images/batteri.webp" type="image/webp"><img src="images/batteri.png" width="370" height="780" alt="Batterihälsa i demoläge." loading="lazy"></picture>
+            <picture><source srcset="images/kostnader.webp" type="image/webp"><img src="images/kostnader.png" width="370" height="780" alt="Kostnader per mil och jämförelse mot bensin." loading="lazy"></picture>
+            <picture><source srcset="images/widgets.webp" type="image/webp"><img src="images/widgets.png" width="358" height="780" alt="Hemskärm med Igges batteriwidget i demoläge." loading="lazy"></picture>
+            <picture><source srcset="images/korlage.webp" type="image/webp"><img src="images/korlage.png" width="358" height="780" alt="Körläge med fartmätare, utan systemets platsfråga." loading="lazy"></picture>
           </div>
         </div>
       </div>

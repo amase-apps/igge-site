@@ -174,7 +174,20 @@ a.store:hover { opacity: 0.86; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 48px;
-  align-items: center;
+  align-items: start;
+}
+
+.copy-stack {
+  display: grid;
+}
+
+.copy-slide {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.copy-slide.is-on {
+  visibility: visible;
 }
 
 .copy h2 {
@@ -193,28 +206,6 @@ a.store:hover { opacity: 0.86; }
 }
 
 .copy p + p { margin-top: 12px; color: var(--ink); }
-
-.aside[hidden],
-.widgets[hidden] { display: none; }
-
-.aside {
-  margin: 22px 0 0;
-  width: min(220px, 70%);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-  background: #000;
-}
-
-.aside img { display: block; width: 100%; }
-
-.aside figcaption {
-  padding: 8px 12px 10px;
-  font-size: 13px;
-  color: var(--muted);
-  background: var(--card-solid);
-}
 
 .phone-col { position: relative; }
 
@@ -243,7 +234,10 @@ a.store:hover { opacity: 0.86; }
   height: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
   scrollbar-width: none;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
 }
 
 .reel::-webkit-scrollbar { display: none; }
@@ -332,29 +326,6 @@ a.store:hover { opacity: 0.86; }
   color: var(--tab-on-ink);
 }
 
-.widgets {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.widgets figure {
-  margin: 0;
-  background: var(--card-solid);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.widgets img { display: block; width: 100%; background: #000; }
-
-.widgets figcaption {
-  padding: 8px 10px 10px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
 .data { padding: 36px 0 12px; }
 
 .data h2 {
@@ -423,7 +394,7 @@ code {
 @media (max-width: 860px) {
   .stage { grid-template-columns: 1fr; justify-items: center; text-align: left; }
   .copy { width: min(560px, 100%); }
-  .cards, .widgets { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; }
   .hero { padding-top: 48px; }
 }
 
