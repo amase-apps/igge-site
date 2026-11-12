@@ -119,7 +119,10 @@
       </div>
     </div>
     <div class="phone-col">
-      <div class="phone">
+      <div class="phone" id="phone">
+        <button type="button" class="phone-expand" id="phone-expand" aria-label="Förstora telefonen">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5 L20 20"/><path d="M10 7.5 v5 M7.5 10 h5"/></svg>
+        </button>
         <div class="bezel">
           <div class="phone-status" aria-hidden="true"><span>09:41</span><span class="status-glyphs">●●●</span></div>
           <div class="reel" id="reel" aria-label="Skärmbilder. Svep i sidled mellan delar. Skärmen rullar lodrätt.">
@@ -179,6 +182,10 @@
   <p>aMASE AB, Tygelvägen 8, 746 39 Bålsta · <a href="mailto:igge@amase.se">igge@amase.se</a> · <a href="integritet/">Integritetspolicy</a></p>
   <p>Igge är inte kopplad till eller godkänd av Tesla, Inc. Appen är gjord för Tesla-bilar.</p>
 </footer>
+</div>
+<div class="phone-modal" id="phone-modal" role="dialog" aria-modal="true" aria-label="Förstorad telefon" hidden>
+  <button type="button" class="phone-modal-close" id="phone-modal-close" aria-label="Stäng">✕</button>
+  <div class="phone-modal-stage" id="phone-modal-stage"></div>
 </div>
 <script src="site.js"></script>
 </body>

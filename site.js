@@ -180,4 +180,92 @@
     reel.scrollLeft += e.deltaX;
     e.preventDefault();
   }, { passive: false });
+
+  var modal = document.getElementById("phone-modal");
+  var phone = document.getElementById("phone");
+  var phoneHome = phone.parentNode;
+  var expandBtn = document.getElementById("phone-expand");
+  var closeBtn = document.getElementById("phone-modal-close");
+  var lockedY = 0;
+
+  function modalButtons() {
+    var nodes = [closeBtn];
+    if (!phone.classList.contains("bare")) {
+      Array.prototype.forEach.call(phone.querySelectorAll(".phone-tabs button"), function (b) { nodes.push(b); });
+    }
+    return nodes;
+  }
+
+  function setInert(on) {
+    Array.prototype.forEach.call(document.body.children, function (el) {
+      if (el === modal) return;
+      if (on) el.setAttribute("inert", "");
+      else el.removeAttribute("inert");
+    });
+  }
+
+  function lockPage() {
+    lockedY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.top = "-" + lockedY + "px";
+    document.body.classList.add("phone-locked");
+  }
+
+  function unlockPage() {
+    document.body.classList.remove("phone-locked");
+    document.body.style.top = "";
+    window.scrollTo(0, lockedY);
+  }
+
+  function settlePhone() {
+    requestAnimationFrame(function () { moveReel(index, "auto"); });
+  }
+
+  function openPhone() {
+    pause();
+    phoneHome.style.minHeight = phone.offsetHeight + "px";
+    document.getElementById("phone-modal-stage").appendChild(phone);
+    modal.hidden = false;
+    var h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    modal.style.height = h + "px";
+    lockPage();
+    setInert(true);
+    closeBtn.focus({ preventScroll: true });
+    settlePhone();
+  }
+
+  function closePhone() {
+    if (modal.hidden) return;
+    phoneHome.insertBefore(phone, phoneHome.firstChild);
+    phoneHome.style.minHeight = "";
+    modal.hidden = true;
+    modal.style.height = "";
+    setInert(false);
+    unlockPage();
+    expandBtn.focus({ preventScroll: true });
+    settlePhone();
+  }
+
+  expandBtn.addEventListener("click", openPhone);
+  closeBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    closePhone();
+  });
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) closePhone();
+  });
+  modal.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { e.preventDefault(); closePhone(); return; }
+    if (e.key === "ArrowRight") { e.preventDefault(); e.stopPropagation(); go(index + 1, true); return; }
+    if (e.key === "ArrowLeft") { e.preventDefault(); e.stopPropagation(); go(index - 1, true); return; }
+    if (e.key !== "Tab") return;
+    var nodes = modalButtons();
+    var first = nodes[0], last = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", function () {
+      if (!modal.hidden) modal.style.height = window.visualViewport.height + "px";
+    });
+  }
 })();
