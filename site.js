@@ -75,10 +75,6 @@
     moveReel(index, reduce ? "auto" : "smooth");
     render(index);
     if (user) pause();
-    if (!dialog.hidden) {
-      dialog.setAttribute("aria-label", "Förstorad skärmbild: " + slides[index].getAttribute("data-name"));
-      if (!fromLightbox) placeLightbox(reduce || !user ? "auto" : "smooth");
-    }
   }
 
   function nearest() {
@@ -87,12 +83,6 @@
 
   var programmatic = false;
   var scrollTimer = null;
-  var dialog = document.getElementById("lightbox");
-  var lbReel = document.getElementById("lightbox-reel");
-  var fromLightbox = false;
-  var lbJump = false;
-  var opener = null;
-  var lockedY = 0;
 
   function showFromReel(i) {
     if (i < 0 || i === index) return;
@@ -161,161 +151,5 @@
   render(start);
   moveReel(start, "auto");
   window.addEventListener("load", function () { moveReel(index, "auto"); });
-  window.addEventListener("resize", function () {
-    moveReel(index, "auto");
-    if (!dialog.hidden) fitLightbox();
-  });
-
-  function lbWidth() { return lbReel.clientWidth || 1; }
-
-  function sizeLightbox() {
-    var w = lbReel.clientWidth;
-    if (!w) return;
-    Array.prototype.forEach.call(lbReel.children, function (el) {
-      el.style.flex = "0 0 " + w + "px";
-      el.style.width = w + "px";
-    });
-  }
-
-  function placeLightbox(behavior) {
-    if (dialog.hidden) return;
-    sizeLightbox();
-    lbJump = true;
-    var behaviorName = behavior || "auto";
-    lbReel.scrollTo({ left: index * lbWidth(), top: 0, behavior: behaviorName });
-    setTimeout(function () { lbJump = false; }, behaviorName === "smooth" ? 520 : 80);
-  }
-
-  function lightboxIndex() {
-    return Math.max(0, Math.min(slides.length - 1, Math.round(lbReel.scrollLeft / lbWidth())));
-  }
-
-  function onLightboxScroll() {
-    if (lbJump || dialog.hidden) return;
-    var i = lightboxIndex();
-    if (i === index) return;
-    fromLightbox = true;
-    go(i, true);
-    fromLightbox = false;
-  }
-
-  var lbTimer = null;
-  lbReel.addEventListener("scroll", function () {
-    if (lbJump) return;
-    if (lbTimer) clearTimeout(lbTimer);
-    lbTimer = setTimeout(onLightboxScroll, 80);
-  }, { passive: true });
-  lbReel.addEventListener("scrollend", function () {
-    if (lbTimer) { clearTimeout(lbTimer); lbTimer = null; }
-    onLightboxScroll();
-  });
-
-  function setInert(on) {
-    Array.prototype.forEach.call(document.body.children, function (el) {
-      if (el === dialog) return;
-      if (on) el.setAttribute("inert", "");
-      else el.removeAttribute("inert");
-    });
-  }
-
-  function lockScroll() {
-    lockedY = window.scrollY || window.pageYOffset || 0;
-    document.body.style.top = "-" + lockedY + "px";
-    document.body.classList.add("lightbox-open");
-  }
-
-  function unlockScroll() {
-    document.body.classList.remove("lightbox-open");
-    document.body.style.top = "";
-    window.scrollTo(0, lockedY);
-  }
-
-  function fitLightbox() {
-    var h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    dialog.style.height = h + "px";
-    requestAnimationFrame(function () { placeLightbox("auto"); });
-  }
-
-  function openLightbox(from) {
-    opener = from || document.getElementById("zoom");
-    pause();
-    dialog.hidden = false;
-    lockScroll();
-    setInert(true);
-    fitLightbox();
-    dialog.setAttribute("aria-label", "Förstorad skärmbild: " + slides[index].getAttribute("data-name"));
-    document.getElementById("lightbox-close").focus({ preventScroll: true });
-  }
-
-  function closeLightbox() {
-    if (dialog.hidden) return;
-    dialog.hidden = true;
-    dialog.style.height = "";
-    setInert(false);
-    unlockScroll();
-    if (opener && opener.focus) opener.focus({ preventScroll: true });
-  }
-
-  var tap = false, tapX = 0, tapY = 0;
-  reel.addEventListener("pointerdown", function (e) {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
-    tap = true;
-    tapX = e.clientX;
-    tapY = e.clientY;
-  }, { passive: true });
-  reel.addEventListener("pointerup", function (e) {
-    if (!tap) return;
-    tap = false;
-    if (Math.abs(e.clientX - tapX) > 8 || Math.abs(e.clientY - tapY) > 8) return;
-    openLightbox(document.getElementById("zoom"));
-  }, { passive: true });
-  reel.addEventListener("pointercancel", function () { tap = false; });
-
-  document.getElementById("zoom").addEventListener("click", function () {
-    openLightbox(document.getElementById("zoom"));
-  });
-
-  var lbTap = false, lbX = 0, lbY = 0, lbMoved = false;
-  lbReel.addEventListener("pointerdown", function (e) {
-    lbTap = true;
-    lbMoved = false;
-    lbX = e.clientX;
-    lbY = e.clientY;
-  }, { passive: true });
-  lbReel.addEventListener("pointermove", function (e) {
-    if (!lbTap) return;
-    if (Math.abs(e.clientX - lbX) > 8 || Math.abs(e.clientY - lbY) > 8) lbMoved = true;
-  }, { passive: true });
-  lbReel.addEventListener("pointerup", function () { lbTap = false; });
-  lbReel.addEventListener("pointercancel", function () { lbTap = false; lbMoved = true; });
-
-  dialog.addEventListener("click", function (e) {
-    if (lbMoved) { lbMoved = false; return; }
-    if (e.target.closest("button, img")) return;
-    closeLightbox();
-  });
-  document.getElementById("lightbox-close").addEventListener("click", function (e) {
-    e.stopPropagation();
-    closeLightbox();
-  });
-  arm(document.getElementById("lightbox-prev"), function () { go(index - 1, true); });
-  arm(document.getElementById("lightbox-next"), function () { go(index + 1, true); });
-
-  dialog.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { e.preventDefault(); closeLightbox(); return; }
-    if (e.key === "ArrowRight") { e.preventDefault(); e.stopPropagation(); go(index + 1, true); return; }
-    if (e.key === "ArrowLeft") { e.preventDefault(); e.stopPropagation(); go(index - 1, true); return; }
-    if (e.key !== "Tab") return;
-    var nodes = Array.prototype.filter.call(dialog.querySelectorAll("button"), function (b) { return !b.disabled; });
-    if (!nodes.length) return;
-    var first = nodes[0], last = nodes[nodes.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  });
-
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", function () {
-      if (!dialog.hidden) fitLightbox();
-    });
-  }
+  window.addEventListener("resize", function () { moveReel(index, "auto"); });
 })();
