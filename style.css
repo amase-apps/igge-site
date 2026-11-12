@@ -181,12 +181,13 @@ a.store:hover { opacity: 0.86; }
 .stage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 48px;
-  align-items: start;
+  gap: 40px;
+  align-items: center;
 }
 
 .copy-stack {
   display: grid;
+  align-items: center;
   position: relative;
   z-index: 0;
 }
@@ -222,6 +223,37 @@ a.store:hover { opacity: 0.86; }
 }
 
 .copy p + p { margin-top: 12px; color: var(--ink); }
+
+.copy .points {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  max-width: 28em;
+}
+
+.copy .points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.copy .points svg {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--accent);
+}
 
 .phone-col {
   position: relative;
@@ -328,7 +360,7 @@ a.store:hover { opacity: 0.86; }
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
-  margin: 28px 0 8px;
+  margin: 12px 0 4px;
 }
 
 .tabs button {
@@ -437,7 +469,7 @@ code {
 }
 
 @media (max-width: 860px) {
-  .stage { grid-template-columns: 1fr; justify-items: center; text-align: left; }
+  .stage { grid-template-columns: 1fr; justify-items: center; align-items: start; text-align: left; gap: 28px; }
   .copy { width: min(560px, 100%); }
   .cards { grid-template-columns: 1fr; }
   .hero { padding-top: 48px; }
