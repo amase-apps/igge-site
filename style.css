@@ -137,6 +137,14 @@ img { max-width: 100%; height: auto; }
 
 .hero .wrap { position: relative; z-index: 1; }
 
+.app-icon {
+  display: block;
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+  margin: 0 0 18px;
+}
+
 .wordmark {
   margin: 0;
   font-size: clamp(64px, 10vw, 104px);
