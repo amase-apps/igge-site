@@ -137,20 +137,36 @@ img { max-width: 100%; height: auto; }
 
 .hero .wrap { position: relative; z-index: 1; }
 
+.brand {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.18em;
+  max-width: 100%;
+  font-size: clamp(64px, 10vw, 104px);
+}
+
 .app-icon {
   display: block;
-  width: 88px;
-  height: 88px;
-  border-radius: 20px;
-  margin: 0 0 18px;
+  flex: 0 0 auto;
+  width: 0.95em;
+  height: 0.95em;
+  max-width: none;
+  border-radius: 22.5%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22), 0 10px 22px rgba(0, 0, 0, 0.42);
 }
 
 .wordmark {
   margin: 0;
-  font-size: clamp(64px, 10vw, 104px);
+  min-width: 0;
+  font-size: 1em;
   line-height: 0.95;
   letter-spacing: -0.045em;
   font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .brand { font-size: clamp(48px, 15vw, 64px); }
 }
 
 .tagline {
