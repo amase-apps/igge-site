@@ -47,6 +47,12 @@
       b.tabIndex = on ? 0 : -1;
     });
     var id = slides[i].getAttribute("data-slide");
+    var phone = phoneForSlide[id] || "";
+    document.querySelector(".phone").classList.toggle("bare", phone === "");
+    Array.prototype.forEach.call(document.querySelectorAll(".phone-tabs button"), function (b) {
+      var on = phone !== "" && b.getAttribute("data-phone") === phone;
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
     if ((location.hash || "").replace("#", "") !== id) {
       history.replaceState(null, "", "#" + id);
     }
@@ -83,6 +89,13 @@
 
   var programmatic = false;
   var scrollTimer = null;
+  var phoneForSlide = {
+    hem: "hem", journal: "journal", laddning: "hem", batteri: "battery",
+    kostnader: "costs", widgets: "", korlage: "", fordon: "vehicle"
+  };
+  var slideForPhone = {
+    hem: "hem", journal: "journal", battery: "batteri", costs: "kostnader", vehicle: "fordon"
+  };
 
   function showFromReel(i) {
     if (i < 0 || i === index) return;
@@ -152,4 +165,19 @@
   moveReel(start, "auto");
   window.addEventListener("load", function () { moveReel(index, "auto"); });
   window.addEventListener("resize", function () { moveReel(index, "auto"); });
+
+  Array.prototype.forEach.call(document.querySelectorAll(".phone-tabs button"), function (b) {
+    b.addEventListener("click", function () {
+      var id = slideForPhone[b.getAttribute("data-phone")];
+      var i = slides.findIndex(function (slide) { return slide.getAttribute("data-slide") === id; });
+      if (i >= 0) go(i, true);
+    });
+  });
+
+  reel.addEventListener("wheel", function (e) {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    if (!e.target.closest(".pane-scroll")) return;
+    reel.scrollLeft += e.deltaX;
+    e.preventDefault();
+  }, { passive: false });
 })();

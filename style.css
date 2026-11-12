@@ -277,39 +277,113 @@ a.store:hover { opacity: 0.86; }
   overflow: hidden;
   background: #000;
   aspect-ratio: 390 / 820;
+  display: flex;
+  flex-direction: column;
 }
+
+.phone-status {
+  flex: none;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.status-glyphs { letter-spacing: 0.18em; font-size: 9px; }
+
+.phone.bare .phone-status,
+.phone.bare .phone-tabs { display: none; }
 
 .reel {
   display: flex;
   width: 100%;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x pan-y;
+  touch-action: pan-x;
   overscroll-behavior-x: contain;
+  overscroll-behavior-y: none;
 }
 
 .reel::-webkit-scrollbar { display: none; }
 
-.reel picture {
+.pane {
   flex: 0 0 100%;
   width: 100%;
   min-width: 100%;
   height: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  overflow: hidden;
 }
 
-.reel img {
+.pane-scroll {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+.pane-scroll img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
 }
+
+.phone-tabs {
+  flex: none;
+  height: 58px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: #0c0c0e;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 2px 8px;
+}
+
+.phone-tabs button {
+  border: 0;
+  background: transparent;
+  color: #8e8e93;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0;
+}
+
+.phone-tabs svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.phone-tabs button[aria-selected="true"] { color: #0a84ff; }
 
 .notch {
   position: absolute;
