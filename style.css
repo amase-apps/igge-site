@@ -194,11 +194,16 @@ a.store:hover { opacity: 0.86; }
 
 .showcase { padding: 28px 0 8px; }
 
+@media (min-width: 861px) {
+  .hero { padding: 40px 0 0; }
+  .showcase { padding-top: 8px; }
+}
+
 .stage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 40px;
-  align-items: center;
+  align-items: start;
 }
 
 .copy-stack {
