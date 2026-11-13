@@ -196,7 +196,7 @@ a.store:hover { opacity: 0.86; }
 
 @media (min-width: 861px) {
   .hero { padding: 40px 0 0; }
-  .showcase { padding-top: 8px; }
+  .showcase { padding-top: 56px; }
 }
 
 .stage {
