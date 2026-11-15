@@ -9,12 +9,16 @@
   var ignoreScroll = false;
   var unlockTimer = null;
 
+  var outsidePhone = { widgets: true, korlage: true };
   slides.forEach(function (slide, i) {
+    var id = slide.getAttribute("data-slide");
+    if (!outsidePhone[id]) return;
     var b = document.createElement("button");
     b.type = "button";
     b.textContent = slide.getAttribute("data-name");
     b.setAttribute("role", "tab");
-    b.id = "tab-" + slide.getAttribute("data-slide");
+    b.setAttribute("data-slide", id);
+    b.id = "tab-" + id;
     b.setAttribute("aria-controls", "panel");
     b.addEventListener("mousedown", function (e) { e.preventDefault(); });
     b.addEventListener("click", function () {
@@ -41,10 +45,11 @@
       slide.classList.toggle("is-on", on);
       slide.setAttribute("aria-hidden", on ? "false" : "true");
     });
-    Array.prototype.forEach.call(tabs.children, function (b, n) {
-      var on = n === i;
+    var current = slides[i].getAttribute("data-slide");
+    Array.prototype.forEach.call(tabs.children, function (b) {
+      var on = b.getAttribute("data-slide") === current;
       b.setAttribute("aria-selected", on ? "true" : "false");
-      b.tabIndex = on ? 0 : -1;
+      b.tabIndex = 0;
     });
     var id = slides[i].getAttribute("data-slide");
     var phone = phoneForSlide[id] || "";
@@ -148,7 +153,7 @@
     document.querySelector(".showcase").addEventListener(ev, pause);
   });
 
-  if (!reduce) {
+  if (!reduce && new URLSearchParams(location.search).get("still") !== "1") {
     timer = setInterval(function () {
       if (paused || document.hidden) return;
       go(index + 1, false);
