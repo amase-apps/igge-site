@@ -662,7 +662,42 @@ footer .copy { color: var(--ink); }
 
 .policy h2 { margin-top: 28px; font-size: 22px; letter-spacing: -0.02em; }
 
+.policy h3 { margin: 22px 0 8px; font-size: 18px; letter-spacing: -0.02em; }
+
 .policy p, .policy li { font-size: 17px; }
+
+.guide-toc {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.guide-toc a { text-decoration: none; }
+
+.guide-home {
+  margin: 12px 0 0;
+  font-size: 15px;
+}
+
+.guide-figure {
+  margin: 16px 0 8px;
+}
+
+.guide-figure img {
+  display: block;
+  width: min(280px, 100%);
+  height: auto;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+}
+
+.guide-figure figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
 
 .home-pill {
   display: inline-flex;

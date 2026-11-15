@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide — Igge</title>
+<meta name="description" content="Så kommer du igång med Igge och använder flikarna, körläget och widgetarna.">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+<div class="hero">
+  <div class="wrap policy">
+<a class="home-pill" href="/"><img src="../images/app-icon.png" width="32" height="32" alt="">Till Igge</a>
+<h1>Guide till Igge</h1>
+<p>Så använder du appen. Bilderna är från demoläget, med påhittade exempel. Priset för abonnemanget står i App Store när du köper.</p>
+
+<nav aria-label="Innehåll">
+<ol class="guide-toc">
+<li><a href="#kom-igang">Kom igång</a></li>
+<li><a href="#hem">Hem</a></li>
+<li><a href="#korjournal">Körjournal</a></li>
+<li><a href="#batteri">Batteri</a></li>
+<li><a href="#kostnader">Kostnader</a></li>
+<li><a href="#fordon">Fordon</a></li>
+<li><a href="#korlage">Körläge</a></li>
+<li><a href="#widgets">Widgets</a></li>
+<li><a href="#installningar">Inställningar</a></li>
+<li><a href="#abonnemang">Abonnemang</a></li>
+<li><a href="#konto">Logga ut och ta bort kontot</a></li>
+<li><a href="#felsokning">Om något strular</a></li>
+</ol>
+</nav>
+
+<h2 id="kom-igang">Kom igång</h2>
+<p>Igge hämtar bilens status, resor och laddning från ditt Tesla-konto till aMASE AB:s server i EU. Inget säljs eller delas.</p>
+
+<h3>Ladda ner</h3>
+<p>Hämta Igge i App Store. På välkomstskärmen kan du antingen koppla din Tesla eller prova demoläget.</p>
+
+<h3>Godkänn villkoren</h3>
+<p>Reglaget <strong>Jag godkänner villkoren och integritetspolicyn</strong> måste vara på innan knappen <strong>Fortsätt med Tesla</strong> går att trycka. Länkarna öppnar <a href="/villkor/">villkoren</a> och <a href="/integritet/">integritetspolicyn</a>. Demoläget kräver inte godkännandet.</p>
+<p>Är du redan inloggad och villkoren har uppdaterats kommer en egen skärm, <strong>Villkor</strong>, innan du kan fortsätta. Den visas inte ovanpå Körläge och inte medan bilen körs. Öppnar appen i Körläge väntar frågan tills Körläge stängs.</p>
+
+<h3>Logga in med Tesla</h3>
+<p>Knappen heter <strong>Fortsätt med Tesla</strong>. Tesla frågar då om Igge får använda kontot. Appen ber om de här behörigheterna:</p>
+<ul>
+<li><strong>openid</strong> och <strong>offline_access</strong>, så att du kan förbli inloggad.</li>
+<li><strong>vehicle_device_data</strong>, så att status som batteri, lås och laddning kan hämtas.</li>
+<li><strong>vehicle_location</strong>, så att bilens plats kan visas.</li>
+<li><strong>vehicle_cmds</strong>, så att kommandon som lås kan skickas när du ber om det.</li>
+<li><strong>vehicle_charging_cmds</strong>, för laddkommandon.</li>
+</ul>
+<p>Teslas egen dialog formulerar samma sak med sina ord. Saknas en behörighet senare kan du logga ut från telefonen och logga in igen.</p>
+
+<h3>Välj eller lägg till bil</h3>
+<p>Första gången heter skärmen <strong>Välj bil</strong>. Senare lägger du till en bil under Inställningar, <strong>Bil och aktivering</strong>, med <strong>Lägg till bil</strong>. Finns det fler bilar byter du bil genom att trycka på namnet på Hem. Ett abonnemang har ett tak för hur många bilar som får ligga i Igge. Är taket nått tar du bort en bil innan du lägger till en ny.</p>
+
+<h3>Virtuell nyckel</h3>
+<p>Körjournalen och kommandona i Fordon kräver Igges virtuella nyckel. Under <strong>Bil och aktivering</strong> står om nyckeln är parad, saknas eller inte är kontrollerad. Saknas den finns knappen <strong>Para nyckeln i Tesla-appen</strong>. Para den en gång. Utan parad nyckel kan kommandon inte skickas, och körjournalen kan säga att nyckeln saknas.</p>
+
+<h3>Plats</h3>
+<p>Igge frågar om platsen <strong>när appen används</strong>, inte i bakgrunden. I Körläge används telefonens GPS till fartmätaren när värdet är färskt och tillräckligt säkert. Annars visas bilens fart. Platsen skickas inte till Tesla. I Navigera, som öppnas från Hem, används telefonens plats bara som reserv när bilen själv inte har en position.</p>
+
+<h3>Notiser</h3>
+<p>Notiser är av tills du slår på dem. De som finns är lokala påminnelser: billigaste tiden att ladda, däckbyte, kalibrering av ett LFP-batteri och ny programvara. De väcker inte bilen. iOS frågar om tillåtelse första gången en sådan påminnelse slås på.</p>
+
+<h3>Demoläge</h3>
+<p><strong>Prova demoläge</strong> visar påhittade bilar och påhittade siffror. Inget konto kopplas och inget skickas till en riktig bil. En rad överst säger <strong>Demoläge</strong>. <strong>Avsluta demo</strong> går tillbaka till välkomstskärmen och rör inte ett riktigt konto.</p>
+
+<h3>Delad bil</h3>
+<p>Varje Igge-konto har sin egen körjournal. Använder flera konton samma bil ligger journalerna kvar var för sig. Den som tar emot kördatan kan, under <strong>Bil och aktivering</strong>, slå på <strong>Dela nya resor</strong> och <strong>Dela äldre historik</strong>. Nya resor kopieras då till de andra Igge-kontona på bilen, från den dag kontot lades till. Äldre historik delas bara om den andra brytaren är på. Är du ägare men kördatan går till ett annat konto kan du trycka <strong>Ta över kördatan</strong>. Då går nya kördata till ditt konto. Den andra journalen ligger kvar.</p>
+
+<h2 id="hem">Hem</h2>
+<p>Hem är en överblick utan eget periodval. Dra nedåt för att läsa om från servern. Det väcker inte bilen. Bara knappen <strong>Väck bilen</strong> gör det, och då efter en bekräftelse.</p>
+<figure class="guide-figure">
+<img src="../images/phone/hem.jpg" width="900" height="4369" alt="Hem i demoläge: bil, laddning, lås och senaste resor.">
+<figcaption>Hem i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<p>Överst syns bilens namn, modell och om den är online, sover eller offline. Finns flera bilar är namnet en väljare. Är värdena inte färska står hur gamla de är.</p>
+<p>Korten under, i den här ordningen:</p>
+<ul>
+<li><strong>Bilen.</strong> Laddnivå, räckvidd, laddning, lås och klimat. Pågår en laddning växer kortet.</li>
+<li><strong>Körning</strong>, bara när bilen kör. Öppnar Körläge. En live-karta kan ligga längre ner.</li>
+<li><strong>Senaste resor.</strong> Visar i dag om det finns resor i dag, annars i går, annars sju dagar, 30 dagar och i år. Tryck för att öppna Körjournal.</li>
+<li><strong>Batteri.</strong> Kort överblick och eventuella påminnelser, till exempel kallt batteri eller LFP. Tryck för att öppna Batteri.</li>
+<li><strong>Kostnader.</strong> Samma periodlogik som resorna. Tryck för att öppna Kostnader. Finns ett förslag på hemadress kan det ligga direkt under.</li>
+<li><strong>Fordon.</strong> Varningar och påminnelser, till exempel däckbyte om det är påslaget. Tryck för att öppna Fordon.</li>
+<li><strong>Plats</strong>, när bilen står stilla och har en position.</li>
+</ul>
+<p>Kugghjulet på Hem öppnar inställningarnas huvudsida. <strong>Navigera</strong> söker mål och kan skicka ett valt mål till bilen.</p>
+
+<h2 id="korjournal">Körjournal</h2>
+<p>Servern sparar resorna. Appen visar, redigerar och exporterar dem. Du ansvarar själv för att kontrollera journalen innan den används mot Skatteverket eller en arbetsgivare.</p>
+<figure class="guide-figure">
+<img src="../images/phone/journal.jpg" width="900" height="3371" alt="Körjournal i demoläge, med tjänst, privat och export.">
+<figcaption>Körjournal i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<p>Öppna en resa för att sätta <strong>tagg</strong>, <strong>ärende</strong>, <strong>besökt</strong> och <strong>förare</strong>. En tagg per resa. Varje tagg räknas som tjänst eller privat i exporten. Privat och Tjänst kan byta namn men inte typ, och de kan inte tas bort. En tagg kan ha förval för förare, ärende och besökt. De fylls bara i tomma fält när taggen väljs.</p>
+<p>I listan kan du svepa en resa åt höger eller vänster för att sätta den tagg du valt under inställningarna. Håll in en resa för att välja bland alla taggar. Då ändras bara taggen.</p>
+<p><strong>Automatisk tagg.</strong> En regel kan sätta tagg på resor som startar eller slutar inom 150 meter från en plats. Den gäller nya resor. Tidigare resor ändras bara om du trycker <strong>Tillämpa</strong>, och då bara om de saknar tagg och inte är låsta.</p>
+<p><strong>Korta stopp.</strong> Under inställningarna, <strong>Slå ihop stopp kortare än</strong>, väljer du 2, 5, 10 eller 15 minuter. Ett stopp kortare än så blir en resa i stället för två. Ändrar du tröskeln räknas olåsta resor från de senaste 30 dagarna om. En sammanslagen resa kan delas igen med <strong>Dela upp resa</strong>.</p>
+<p><strong>Lås resan</strong> när månaden är klar. En låst resa kan inte ändras eller slås ihop.</p>
+<p><strong>Export</strong> finns som CSV, detaljerad CSV eller PDF. PDF:en är till för att skrivas under. Perioden väljs i exporten. Registreringsnummer och företagsuppgifter, om du fyllt i dem, står i huvudet. Månaden överst i listan styr bara vad som visas, inte exportens period.</p>
+
+<h2 id="batteri">Batteri</h2>
+<p>Fliken visar laddnivå, räckvidd, pågående laddning, batterihälsa, förbrukning och fantomförlust. Appen väcker inte bilen för att mäta. Är värdena gamla kan ett väckningskort ligga överst, samma fråga som på Hem.</p>
+<figure class="guide-figure">
+<img src="../images/phone/batteri.jpg" width="900" height="2661" alt="Batteri i demoläge: laddnivå, hälsa och förbrukning.">
+<figcaption>Batteri i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<ul>
+<li><strong>Laddnivå</strong> är bilens procent. <strong>Räckvidd</strong> är bilens egen siffra.</li>
+<li><strong>Batterihälsa</strong> är uppmätt kapacitet jämfört med bilen som ny, som andel. Den visas först när osäkerheten är liten, inom ungefär två procentenheter. Den är inte ett officiellt mått från Tesla och kan variera med temperatur och bilens kalibrering.</li>
+<li><strong>Förbrukning</strong> visas över tid, i Wh/km.</li>
+<li><strong>Fantomförlust</strong> är energi som försvinner när bilen står.</li>
+<li>Har bilen ett LFP-batteri kan en påminnelse säga att det gått mer än ungefär en vecka sedan 100&nbsp;%. Den syns i kortet och, om du slagit på den, som notis.</li>
+</ul>
+<p>Inställningarna för fliken öppnas med kugghjulet och heter <strong>Batteri</strong>. Där finns bland annat startperiod, LFP-påminnelse, förbrukning och fantomförlust.</p>
+
+<h2 id="kostnader">Kostnader</h2>
+<p>Kostnaderna är uppskattningar. Hemmaladdning räknas från spotpris och de avgifter du angett. Supercharger följer Teslas laddhistorik. Appen kan inte starta eller styra laddningen.</p>
+<figure class="guide-figure">
+<img src="../images/phone/kostnader.jpg" width="900" height="5496" alt="Kostnader i demoläge, räknat på påhittade resor.">
+<figcaption>Kostnader i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<p>Perioden följer det som finns: i dag, annars i går, annars 7 dagar, 30 dagar och i år. Du kan också välja period i fliken.</p>
+<ul>
+<li><strong>Kostnad per mil</strong> räknas från körningen och elpriset.</li>
+<li><strong>Laddkostnad</strong> skiljer på hemma och Supercharger.</li>
+<li><strong>Jämfört med bensin</strong> ställer samma sträcka mot ett bensinpris du anger.</li>
+<li><strong>Billigast att ladda</strong> visar timpris och spotpris för kommande dygn, och ett fönster som är billigare än att ladda nu, när avtalet varierar under dygnet. Schemalagd laddning ställer du in i Tesla-appen eller i bilen.</li>
+<li><strong>Senaste hemmaladdningar</strong> listar laddningar hemma.</li>
+</ul>
+<p>Kugghjulet öppnar <strong>Kostnader</strong>: elområde, hem, nät och påslag, jämförelsen med bensin, och om du vill bli påmind när det är billigt att ladda. Hem används också för att se om en laddning räknas som hemmaladdning.</p>
+
+<h2 id="fordon">Fordon</h2>
+<p>Status för bilen. Styrning som hör till körningen sitter i Körläge, inte här. Väckning fungerar som på Hem och Batteri.</p>
+<figure class="guide-figure">
+<img src="../images/phone/fordon.jpg" width="900" height="6605" alt="Fordon i demoläge: varningar, lås, däck och fordonsinfo.">
+<figcaption>Fordon i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<ul>
+<li><strong>Senaste varningar</strong> och sådant som redan är åtgärdat.</li>
+<li><strong>Lås och luckor</strong>, och klimat om bilen rapporterar det.</li>
+<li><strong>Däck</strong>, mätarställning och programvara, med historik där servern har underlag.</li>
+<li><strong>Fordonsinfo</strong> med modell och VIN.</li>
+</ul>
+<p>Kommandon, till exempel lås, frunk, bagagelucka, fönster, tuta och hastighetsbegränsning, kräver den virtuella nyckeln. Lås upp, frunk, bagagelucka, fönster, tuta och hastighetsbegränsning frågar alltid innan något skickas. Övriga kommandon frågar om <strong>Fråga innan kommandon skickas</strong> är på, under <strong>Bil och aktivering</strong>.</p>
+
+<h2 id="korlage">Körläge</h2>
+<p>Körläget öppnas i helskärm när bilen börjar köra och appen är öppen, om <strong>Visa körläge automatiskt</strong> är på. Stänger du det öppnas det igen först vid nästa körning. Du kan också öppna det från kortet på Hem.</p>
+<figure class="guide-figure">
+<img src="../images/phone/korlage.jpg" width="900" height="1840" alt="Körläge i demoläge, med fartmätare och resans energi.">
+<figcaption>Körläge i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<p>Fartmätaren använder telefonens GPS ungefär en gång i sekunden när värdet är färskt och säkert. Annars visas bilens fart, som kommer mer sällan. Resans energi och nästa del av rutten kan visas.</p>
+<p>En hastighetsgräns kan visas som stöd. Den hämtas från öppna kartdata och kan vara fel, till exempel vid vägarbete eller en ny skylt. Det är alltid du som förare som följer vägmärken och trafikregler. Håll blicken på vägen. Ställ in det du behöver innan du kör, eller låt en passagerare sköta telefonen. Samma sak står i <a href="/villkor/">villkoren</a>.</p>
+
+<h2 id="widgets">Widgets</h2>
+<p>På hemskärmen: håll in, välj widgetgalleriet och Igge. Det finns två widgetar, <strong>Körjournal</strong> och <strong>Batteri</strong>. Båda finns i litet, mellan och stort format. I <strong>Redigera widget</strong> väljer du bil. För körjournalen väljer du också vad som visas, till exempel senaste resor eller en period. Större format kan lägga till körtid, snitt och energi.</p>
+<figure class="guide-figure">
+<img src="../images/phone/widgets.jpg" width="900" height="1961" alt="Hemskärm med Igges batteriwidget i demoläge.">
+<figcaption>Widget i demoläge. Påhittat exempel.</figcaption>
+</figure>
+<p>Saknas underlag står att du ska öppna Igge. Finns inte bilen i appen just nu, till exempel för att du är utloggad, ber widgeten dig välja bil i Redigera widget. Den visar inte en annan bils värden.</p>
+
+<h2 id="installningar">Inställningar</h2>
+<p>Kugghjulet på Hem öppnar huvudsidan. Kugghjulet i Körjournal, Batteri, Kostnader eller Fordon öppnar den flikens sida, med en tillbaka-knapp till huvudsidan. Rubrikerna följer korten på fliken.</p>
+<ul>
+<li><strong>Bil och aktivering.</strong> Bilar på kontot, lägg till och ta bort bil, logga ut, radera konto, virtuell nyckel, aktivering, när appen ska föreslå väckning, och om kommandon ska frågas innan de skickas.</li>
+<li><strong>Körläge.</strong> Om helskärmen ska öppnas automatiskt.</li>
+<li><strong>Körjournal.</strong> Företag, förare, ärenden, besökta, korta stopp, taggar, svep i listan och registreringsnummer.</li>
+<li><strong>Batteri.</strong> Startperiod och påminnelser för hälsa, förbrukning och fantomförlust.</li>
+<li><strong>Kostnader.</strong> Elpris, hem, bensin och påminnelse om billig laddning.</li>
+<li><strong>Fordon.</strong> Det som hör till däck, mätarställning och programvara.</li>
+<li><strong>Diagnostik</strong> under Avancerat, för felsökning och support.</li>
+</ul>
+
+<h2 id="abonnemang">Abonnemang</h2>
+<p>Ett nytt abonnemang kan börja med 14 dagar utan kostnad. Därefter gäller priset som visas i appen och i App Store när du köper. Betalning, förnyelse, uppsägning och återbetalning sköts av Apple. Abonnemanget förnyas tills du säger upp det hos Apple, senast ett dygn innan perioden tar slut. I appen finns <strong>Återställ köp</strong> och <strong>Hantera abonnemang</strong>.</p>
+<p>När abonnemanget har tagit slut kan du läsa historiken och exportera körjournalen i 30 dagar. Ny körning sparas inte, och bilen hämtas inte från Tesla. Efter de 30 dagarna raderas uppgifterna. Mer står i <a href="/villkor/">villkoren</a> och <a href="/integritet/">integritetspolicyn</a>.</p>
+
+<h2 id="konto">Logga ut och ta bort kontot</h2>
+<p>Allt det här ligger under <strong>Bil och aktivering</strong>.</p>
+<ul>
+<li><strong>Logga ut från telefonen</strong> loggar bara ut den här telefonen. Kontot och resorna ligger kvar.</li>
+<li><strong>Ta bort bil</strong> tar bort bilen från Igge. Historiken sparas i 30 dagar och raderas sedan.</li>
+<li><strong>Radera konto</strong> tar bort Igge-kontot och dess uppgifter direkt. Teslas konto finns kvar. Syns Igges nyckel fortfarande i Tesla-appen tar du bort den där.</li>
+</ul>
+
+<h2 id="felsokning">Om något strular</h2>
+<ul>
+<li><strong>Du är utloggad.</strong> Välkomstskärmen visas igen. Godkänn reglaget och fortsätt med Tesla. Saknas en behörighet: logga ut från telefonen och logga in igen.</li>
+<li><strong>Bilen sover.</strong> Hem, Batteri och Fordon visar senaste kända värden och kan fråga om du vill väcka. Bilen väcks bara om du trycker <strong>Väck bilen</strong> och bekräftar. Dra-för-att-uppdatera väcker inte.</li>
+<li><strong>En resa saknas.</strong> Korta stopp kan ha slagits ihop med resan före eller efter. Kontrollera tröskeln under Körjournal. En resa som Tesla inte rapporterat kan inte hittas på. Körjournalen behöver också att nyckeln är parad och att bilen är tillagd.</li>
+<li><strong>Kommandon gör inget.</strong> Nyckeln under Bil och aktivering ska stå som parad. Vissa kommandon frågar alltid innan de skickas.</li>
+<li><strong>Widgeten är tom.</strong> Öppna Igge en gång. Välj bil i Redigera widget om bilen inte finns kvar i appen.</li>
+</ul>
+</div>
+</div>
+<div class="wrap">
+<footer>
+  <p class="copy">© 2026 aMASE AB. Alla rättigheter förbehållna.</p>
+  <p>aMASE AB, Tygelvägen 8, 746 39 Bålsta · <a href="mailto:igge@amase.se">igge@amase.se</a> · <a href="../">Igge</a> · <a href="/villkor/">Villkor</a> · <a href="/integritet/">Integritetspolicy</a></p>
+  <p>Igge är en fristående app från aMASE AB och använder Teslas officiella Fleet API. Tesla är ett varumärke som tillhör Tesla, Inc. Appen är gjord för Tesla-bilar.</p>
+</footer>
+</div>
+</body>
+</html>
