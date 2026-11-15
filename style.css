@@ -724,21 +724,51 @@ footer .copy { color: var(--ink); }
   margin: 28px 0 8px;
 }
 
-.policy h2 { margin-top: 28px; font-size: 22px; letter-spacing: -0.02em; }
+.policy h2 { margin-top: 28px; font-size: 22px; letter-spacing: -0.02em; scroll-margin-top: 76px; }
 
-.policy h3 { margin: 22px 0 8px; font-size: 18px; letter-spacing: -0.02em; }
+.policy h3 { margin: 22px 0 8px; font-size: 18px; letter-spacing: -0.02em; scroll-margin-top: 76px; }
 
 .policy p, .policy li { font-size: 17px; }
 
-.guide-toc {
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 6px;
+.guide-jump { margin: 20px 0 4px; }
+
+.guide-jump p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.guide-toc a { text-decoration: none; }
+.guide-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-toc li { margin: 0; }
+
+.guide-toc a {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 560;
+  line-height: 1.2;
+  padding: 6px 10px;
+  border-radius: 980px;
+  background: var(--tab);
+  border: 1px solid var(--line);
+}
+
+.guide-toc a[aria-current="true"] {
+  color: var(--ink);
+  border-color: var(--accent);
+}
 
 .guide-home {
   margin: 12px 0 0;

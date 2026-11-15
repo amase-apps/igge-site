@@ -27,7 +27,8 @@
 <h1>Guide till Igge</h1>
 <p>Så använder du appen. Bilderna är från demoläget, med påhittade exempel. Priset för abonnemanget står i App Store när du köper.</p>
 
-<nav aria-label="Innehåll">
+<nav class="guide-jump" aria-label="Innehåll">
+<p>Hoppa till</p>
 <ol class="guide-toc">
 <li><a href="#kom-igang">Kom igång</a></li>
 <li><a href="#hem">Hem</a></li>
@@ -229,5 +230,31 @@
   <p>Igge är en fristående app från aMASE AB och använder Teslas officiella Fleet API. Tesla är ett varumärke som tillhör Tesla, Inc. Appen är gjord för Tesla-bilar.</p>
 </footer>
 </div>
+<script>
+(function () {
+  var links = document.querySelectorAll(".guide-toc a");
+  var map = {};
+  links.forEach(function (a) {
+    var id = (a.getAttribute("href") || "").slice(1);
+    if (id) map[id] = a;
+  });
+  if (!("IntersectionObserver" in window)) return;
+  var current = null;
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var a = map[entry.target.id];
+      if (!a || a === current) return;
+      if (current) current.removeAttribute("aria-current");
+      a.setAttribute("aria-current", "true");
+      current = a;
+    });
+  }, { rootMargin: "-30% 0px -60% 0px" });
+  Object.keys(map).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
