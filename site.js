@@ -113,7 +113,7 @@
   var programmatic = false;
   var scrollTimer = null;
   var phoneForSlide = {
-    hem: "hem", journal: "journal", laddning: "hem", batteri: "battery",
+    hem: "hem", journal: "journal", batteri: "battery",
     kostnader: "costs", widgets: "", korlage: "", fordon: "vehicle"
   };
   var slideForPhone = {
