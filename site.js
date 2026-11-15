@@ -243,7 +243,7 @@
   reel.addEventListener("dragstart", function (e) { e.preventDefault(); });
 
   reel.addEventListener("pointerdown", function (e) {
-    if (e.button !== 0) return;
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
     if (e.target.closest("button, a")) return;
     stopCoast();
     suppressClick = false;
@@ -330,6 +330,57 @@
 
   reel.addEventListener("pointerup", endPointer);
   reel.addEventListener("pointercancel", endPointer);
+
+  var touch = null;
+
+  reel.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) { touch = null; return; }
+    if (e.target.closest("button, a")) return;
+    var point = e.touches[0];
+    if (point.clientX <= 20) return;
+    stopCoast();
+    touch = { id: point.identifier, x: point.clientX, y: point.clientY, axis: "" };
+  }, { passive: true, capture: true });
+
+  reel.addEventListener("touchmove", function (e) {
+    if (!touch || e.touches.length !== 1) return;
+    var point = e.touches[0];
+    if (point.identifier !== touch.id) return;
+    var dx = point.clientX - touch.x;
+    var dy = point.clientY - touch.y;
+    if (!touch.axis) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6 && e.cancelable) e.preventDefault();
+        return;
+      }
+      touch.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+    }
+    if (touch.axis === "x" && e.cancelable) {
+      e.preventDefault();
+      suppressClick = true;
+    }
+  }, { passive: false, capture: true });
+
+  function endTouch(e) {
+    if (!touch) return;
+    var state = touch;
+    touch = null;
+    var point = null;
+    if (e.changedTouches) {
+      for (var i = 0; i < e.changedTouches.length; i++) {
+        if (e.changedTouches[i].identifier === state.id) point = e.changedTouches[i];
+      }
+    }
+    if (e.type === "touchcancel" || !point) return;
+    var dx = point.clientX - state.x;
+    if (state.axis === "x" && Math.abs(dx) > 40) {
+      setTimeout(function () { suppressClick = false; }, 0);
+      changeView(dx);
+    }
+  }
+
+  reel.addEventListener("touchend", endTouch);
+  reel.addEventListener("touchcancel", endTouch);
 
   reel.addEventListener("click", function (e) {
     if (!suppressClick) return;

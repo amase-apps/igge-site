@@ -342,8 +342,7 @@ a.store:hover { opacity: 0.86; }
   scroll-snap-type: x mandatory;
   scroll-behavior: auto;
   scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+  touch-action: manipulation;
   overscroll-behavior-x: none;
   overscroll-behavior-y: auto;
 }
@@ -367,7 +366,7 @@ a.store:hover { opacity: 0.86; }
   overscroll-behavior-x: none;
   overscroll-behavior-y: auto;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+  touch-action: manipulation;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
 }
