@@ -128,7 +128,7 @@
         </button>
         <div class="bezel">
           <div class="phone-status" aria-hidden="true"><span>09:41</span><span class="status-glyphs">●●●</span></div>
-          <div class="reel" id="reel" aria-label="Skärmbilder. Svep i sidled mellan delar. Skärmen rullar lodrätt.">
+          <div class="reel" id="reel" aria-label="Skärmbilder. Svep åt sidan för att byta del. Skärmen rullar lodrätt.">
             <div class="pane" data-slide="hem"><div class="pane-scroll"><picture><source srcset="images/phone/hem.avif" type="image/avif"><source srcset="images/phone/hem.webp" type="image/webp"><img src="images/phone/hem.jpg" width="900" height="4369" alt="Hem i demoläge: exempelbil, laddning, lås och senaste resor."></picture></div></div>
             <div class="pane" data-slide="journal"><div class="pane-scroll"><picture><source srcset="images/phone/journal.avif" type="image/avif"><source srcset="images/phone/journal.webp" type="image/webp"><img src="images/phone/journal.jpg" width="900" height="3371" alt="Körjournal i demoläge, med tjänst, privat och export." loading="lazy"></picture></div></div>
             <div class="pane" data-slide="laddning"><div class="pane-scroll"><picture><source srcset="images/phone/laddning.avif" type="image/avif"><source srcset="images/phone/laddning.webp" type="image/webp"><img src="images/phone/laddning.jpg" width="900" height="1508" alt="Laddning i demoläge: 11 kW hemma, påhittat exempel." loading="lazy"></picture></div></div>
@@ -147,12 +147,9 @@
           </nav>
         </div>
       </div>
-      <div class="arrows">
-        <button type="button" id="prev" aria-label="Föregående del">‹</button>
-        <button type="button" id="next" aria-label="Nästa del">›</button>
       </div>
-      </div>
-      <p class="phone-hint">Testa appen här: tryck, dra eller scrolla i skärmen, och tryck på flikarna längst ner, precis som i telefonen.</p>
+      <div class="phone-dots" id="phone-dots" role="tablist" aria-label="Delar i appen"></div>
+      <p class="phone-hint">Testa appen här: tryck på flikarna, dra för att scrolla eller svep åt sidan för att byta vy.</p>
       <div class="tabs" id="tabs" role="tablist" aria-label="Körläge och widgets"></div>
     </div>
   </div>

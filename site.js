@@ -28,6 +28,19 @@
     tabs.appendChild(b);
   });
 
+  var dots = document.getElementById("phone-dots");
+  slides.forEach(function (slide, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-label", slide.getAttribute("data-name"));
+    b.addEventListener("click", function () {
+      go(i, true);
+      b.focus({ preventScroll: true });
+    });
+    dots.appendChild(b);
+  });
+
   function slideWidth() { return reel.clientWidth || 1; }
 
   function sizeSlides() {
@@ -50,6 +63,11 @@
       var on = b.getAttribute("data-slide") === current;
       b.setAttribute("aria-selected", on ? "true" : "false");
       b.tabIndex = 0;
+    });
+    Array.prototype.forEach.call(dots.children, function (b, n) {
+      var on = n === i;
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
     });
     var id = slides[i].getAttribute("data-slide");
     var phone = phoneForSlide[id] || "";
@@ -129,16 +147,6 @@
     syncFromScroll();
   });
 
-  function arm(el, fn) {
-    el.addEventListener("mousedown", function (e) { e.preventDefault(); });
-    el.addEventListener("click", function () {
-      fn();
-      el.focus({ preventScroll: true });
-    });
-  }
-  arm(document.getElementById("prev"), function () { go(index - 1, true); });
-  arm(document.getElementById("next"), function () { go(index + 1, true); });
-
   document.querySelector(".showcase").addEventListener("keydown", function (e) {
     if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1, true); }
     if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1, true); }
@@ -187,21 +195,20 @@
   }, { passive: false });
 
   var drag = null;
-  var dragMoved = false;
   var suppressClick = false;
   var coastToken = 0;
 
-  function scrollable(el, axis) {
+  function scrollableY(el) {
     while (el && el !== document.body) {
       var style = window.getComputedStyle(el);
-      var overflow = axis === "x" ? style.overflowX : style.overflowY;
-      if (overflow === "auto" || overflow === "scroll") {
-        if (axis === "x" && el.scrollWidth > el.clientWidth + 1) return el;
-        if (axis === "y" && el.scrollHeight > el.clientHeight + 1) return el;
-      }
+      if ((style.overflowY === "auto" || style.overflowY === "scroll") && el.scrollHeight > el.clientHeight + 1) return el;
       el = el.parentElement;
     }
     return null;
+  }
+
+  function horizontalSwipe(dx, dy) {
+    return Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5;
   }
 
   function stopCoast() { coastToken += 1; }
@@ -211,15 +218,14 @@
     document.documentElement.classList.remove("is-phone-dragging");
   }
 
-  function settleDrag(state) {
+  function changeView(dx) {
     endDragClass();
-    if (state.axis === "x") go(nearest(), true);
+    go(index + (dx < 0 ? 1 : -1), true);
   }
 
   function coastDrag(state) {
-    var velocity = state.axis === "y" ? state.vy : state.vx;
-    velocity = Math.max(-1.2, Math.min(1.2, velocity));
-    if (reduce || Math.abs(velocity) < 0.35) { settleDrag(state); return; }
+    var velocity = Math.max(-1.2, Math.min(1.2, state.vy));
+    if (reduce || Math.abs(velocity) < 0.35) { endDragClass(); return; }
     var token = coastToken;
     var last = performance.now();
     var frame = function (now) {
@@ -227,10 +233,9 @@
       var dt = Math.min(32, now - last);
       last = now;
       velocity *= Math.pow(0.86, dt / 16);
-      if (state.axis === "y") state.scroller.scrollTop -= velocity * dt;
-      else state.scroller.scrollLeft -= velocity * dt;
+      state.scroller.scrollTop -= velocity * dt;
       if (Math.abs(velocity) > 0.04) requestAnimationFrame(frame);
-      else settleDrag(state);
+      else endDragClass();
     };
     requestAnimationFrame(frame);
   }
@@ -238,74 +243,89 @@
   reel.addEventListener("dragstart", function (e) { e.preventDefault(); });
 
   reel.addEventListener("pointerdown", function (e) {
-    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    if (e.button !== 0) return;
     if (e.target.closest("button, a")) return;
     stopCoast();
     suppressClick = false;
-    dragMoved = false;
+    endDragClass();
     drag = {
       id: e.pointerId,
+      mouse: e.pointerType === "mouse",
       target: e.target,
       x: e.clientX,
       y: e.clientY,
       lx: e.clientX,
       ly: e.clientY,
       lt: performance.now(),
-      vx: 0,
       vy: 0,
       axis: "",
-      scroller: null,
-      origin: 0
+      scroller: null
     };
     document.addEventListener("pointerup", endPointer);
     document.addEventListener("pointercancel", endPointer);
-    try { reel.setPointerCapture(e.pointerId); } catch (err) {}
+    if (drag.mouse) {
+      try { reel.setPointerCapture(e.pointerId); } catch (err) {}
+    }
   });
 
   reel.addEventListener("pointermove", function (e) {
-    if (!drag || e.pointerId !== drag.id || e.pointerType !== "mouse") return;
+    if (!drag || e.pointerId !== drag.id) return;
     var dx = e.clientX - drag.x;
     var dy = e.clientY - drag.y;
-    if (!dragMoved) {
-      if (Math.hypot(dx, dy) < 5) return;
-      var axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-      var scroller = scrollable(drag.target, axis);
-      if (!scroller) return;
-      dragMoved = true;
-      suppressClick = true;
-      drag.axis = axis;
-      drag.scroller = scroller;
-      drag.origin = axis === "y" ? scroller.scrollTop : scroller.scrollLeft;
-      reel.classList.add("is-dragging");
-      document.documentElement.classList.add("is-phone-dragging");
+    if (!drag.axis) {
+      if (horizontalSwipe(dx, dy)) {
+        drag.axis = "x";
+        suppressClick = true;
+        if (drag.mouse) document.documentElement.classList.add("is-phone-dragging");
+        try { reel.setPointerCapture(e.pointerId); } catch (err) {}
+      } else if (Math.abs(dy) > 5 && Math.abs(dy) >= Math.abs(dx)) {
+        drag.axis = "y";
+        if (drag.mouse) {
+          suppressClick = true;
+          drag.scroller = scrollableY(drag.target);
+          if (drag.scroller) drag.origin = drag.scroller.scrollTop + dy;
+          document.documentElement.classList.add("is-phone-dragging");
+          try { reel.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      } else return;
     }
-    if (!drag.scroller) return;
-    e.preventDefault();
+    if (drag.axis === "x") {
+      if (e.cancelable) e.preventDefault();
+      return;
+    }
+    if (!drag.mouse || !drag.scroller) return;
+    if (e.cancelable) e.preventDefault();
     var now = performance.now();
     var dt = Math.max(1, now - drag.lt);
-    drag.vx = (e.clientX - drag.lx) / dt;
     drag.vy = (e.clientY - drag.ly) / dt;
-    drag.lx = e.clientX;
     drag.ly = e.clientY;
     drag.lt = now;
-    if (drag.axis === "y") drag.scroller.scrollTop = drag.origin - dy;
-    else drag.scroller.scrollLeft = drag.origin - dx;
+    drag.scroller.scrollTop = drag.origin - dy;
   }, { passive: false });
 
   function endPointer(e) {
     if (!drag || (e && e.pointerId !== drag.id)) return;
     var state = drag;
-    var moved = dragMoved;
     drag = null;
-    dragMoved = false;
     document.removeEventListener("pointerup", endPointer);
     document.removeEventListener("pointercancel", endPointer);
     if (e && reel.hasPointerCapture && reel.hasPointerCapture(e.pointerId)) {
       try { reel.releasePointerCapture(e.pointerId); } catch (err) {}
     }
-    if (!moved || !state.scroller) { endDragClass(); return; }
-    setTimeout(function () { suppressClick = false; }, 0);
-    coastDrag(state);
+    if (e && e.type === "pointercancel") { endDragClass(); return; }
+    var dx = e ? e.clientX - state.x : 0;
+    var dy = e ? e.clientY - state.y : 0;
+    if (state.axis === "x" || (!state.axis && horizontalSwipe(dx, dy))) {
+      setTimeout(function () { suppressClick = false; }, 0);
+      changeView(dx);
+      return;
+    }
+    if (state.axis === "y" && state.mouse && state.scroller) {
+      setTimeout(function () { suppressClick = false; }, 0);
+      coastDrag(state);
+      return;
+    }
+    endDragClass();
   }
 
   reel.addEventListener("pointerup", endPointer);
