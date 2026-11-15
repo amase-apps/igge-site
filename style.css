@@ -350,6 +350,8 @@ a.store:hover { opacity: 0.86; }
 
 .reel::-webkit-scrollbar { display: none; }
 
+.reel.is-dragging { scroll-snap-type: none; }
+
 .pane {
   flex: 0 0 100%;
   width: 100%;
@@ -376,6 +378,18 @@ a.store:hover { opacity: 0.86; }
   display: block;
   width: 100%;
   height: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pane-scroll { cursor: grab; }
+}
+
+html.is-phone-dragging,
+html.is-phone-dragging * {
+  cursor: grabbing !important;
+  user-select: none !important;
 }
 
 .phone-tabs {
