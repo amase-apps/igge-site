@@ -763,6 +763,32 @@ footer .copy { color: var(--ink); }
   font-size: 14px;
 }
 
+.ad-banner {
+  margin: 36px 0 8px;
+}
+
+.ad-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ad-banner a {
+  display: block;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.ad-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .home-pill {
   display: inline-flex;
   align-items: center;
