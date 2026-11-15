@@ -787,6 +787,11 @@ footer .copy { color: var(--ink); }
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 1920 / 500;
+}
+
+@media (max-width: 700px) {
+  .ad-banner img { aspect-ratio: 1600 / 720; }
 }
 
 .home-pill {
