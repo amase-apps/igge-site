@@ -201,9 +201,11 @@ a.store:hover { opacity: 0.86; }
 
 .stage {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 40px;
+  grid-template-columns: minmax(0, 32rem) auto;
+  column-gap: 72px;
+  row-gap: 28px;
   align-items: start;
+  justify-content: center;
 }
 
 .copy-stack {
@@ -550,7 +552,7 @@ body.phone-locked {
 
 .phone-hint {
   margin: 16px auto 0;
-  max-width: 26em;
+  max-width: 22em;
   text-align: center;
   color: var(--muted);
   font-size: 14px;
@@ -675,6 +677,7 @@ code {
 @media (max-width: 860px) {
   .stage { grid-template-columns: 1fr; justify-items: center; align-items: start; text-align: left; gap: 28px; }
   .copy { width: min(560px, 100%); }
+  .phone-hint { max-width: 26em; }
   .cards { grid-template-columns: 1fr; }
   .hero { padding-top: 48px; }
 }
