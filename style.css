@@ -775,6 +775,38 @@ footer .copy { color: var(--ink); }
   font-size: 15px;
 }
 
+.guide-steps {
+  display: flex;
+  gap: 14px;
+  margin: 16px 0 8px;
+  padding: 0 0 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.guide-steps figure {
+  flex: 0 0 220px;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.guide-steps img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+}
+
+.guide-steps figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .guide-figure {
   margin: 16px 0 8px;
 }
